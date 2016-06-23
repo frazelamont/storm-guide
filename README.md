@@ -10,7 +10,7 @@ npm install storm-guide
 See example index.html for HTML markup
 
 ```js
-Guide = require('storm-guide').init();
+Guide = require('storm-guide');
 Guide.init();
 
 ```
