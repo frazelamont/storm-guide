@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Thu, 05 Jan 2017 17:57:29 GMT
+ * @version 0.1.1: Fri, 06 Jan 2017 17:16:09 GMT
  * @author stormid
  * @license MIT
  */
@@ -23,13 +23,17 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var defaults = {
+var CONSTANTS = {
+	TRIGGER_EVENTS: ['click', 'keydown'],
+	TRIGGER_KEYCODES: [13, 32]
+},
+    defaults = {
 	linkClassName: '.js-guide__link',
 	sectionClassName: '.js-guide__section',
 	incrementalNavHolder: '.js-guide__incremental',
 	activeClassName: 'active'
 },
-    hash = location.hash.slice(1) || null,
+    hash = global.location && global.location.hash.slice(1) || null,
     templates = {
 	previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous nav-incremental-link page-navigation__prev">', '<div class="nav-incremental__part">Part {{num}}</div>', '<div class="nav-incremental__title">{{title}}</div>', '</div>'].join(''),
 	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--previous nav-incremental-link page-navigation__prev">', '<div class="nav-incremental__part">Part {{num}}</div>', '<div class="nav-incremental__title">{{title}}</div>', '</div>'].join('')
@@ -45,7 +49,7 @@ var defaults = {
 
 var StormGuide = {
 	init: function init() {
-		if (hash) window.location.hash = '';
+		if (global.location) global.location.hash = '';
 
 		this.links = [].slice.call(document.querySelectorAll(this.settings.linkClassName)) || null;
 		this.sections = [].slice.call(document.querySelectorAll(this.settings.sectionClassName));
@@ -53,7 +57,7 @@ var StormGuide = {
 		this.currentIndex = 0;
 		this.currentTitle = '';
 
-		if (!this.links || !this.sections || !this.incrementalNavHolder) throw new Error('Guide could not be initialised, ');
+		if (!this.links.length || !this.sections.length || !this.incrementalNavHolder) throw new Error('Guide could not be initialised, ');
 
 		this.setInitialState();
 		this.setVisibility();
@@ -84,7 +88,7 @@ var StormGuide = {
 
 		window.scrollTo(0, 0);
 		window.setTimeout(function () {
-			if (hash && window.location.hash === '') !!window.history && !!window.history.pushState && window.history.pushState({ URL: '#' + hash }, '', '#' + hash);
+			if (hash && global.location.hash === '') !!window.history && !!window.history.pushState && window.history.pushState({ URL: '#' + hash }, '', '#' + hash);
 			window.scrollTo(0, 0);
 		}, 0);
 	},
@@ -118,13 +122,18 @@ var StormGuide = {
 		var _this3 = this;
 
 		[].slice.call(document.querySelectorAll(sel)).forEach(function (btn) {
-			btn.addEventListener('click', _this3.change.bind(_this3));
+			CONSTANTS.TRIGGER_EVENTS.forEach(function (ev) {
+				btn.addEventListener(ev, function (e) {
+					if (!!e.keyCode && !~CONSTANTS.TRIGGER_KEYCODES.indexOf(e.keyCode)) return;
+					e.preventDefault();
+					_this3.change(e.target);
+				});
+			});
 		});
 	},
-	change: function change(e) {
-		e.preventDefault();
+	change: function change(link) {
 		var previousIndex = this.currentIndex,
-		    nextUrl = (e.target.parentNode.getAttribute('href') || e.target.getAttribute('href')).split('#')[1],
+		    nextUrl = (link.parentNode.getAttribute('href') || link.getAttribute('href')).split('#')[1],
 		    nextIndex = this.getNextIndex('#' + nextUrl);
 
 		if (previousIndex === nextIndex) return;
