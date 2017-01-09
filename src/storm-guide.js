@@ -10,13 +10,13 @@ const CONSTANTS = {
 	},
 	hash = (global.location && global.location.hash.slice(1)) || null,
 	templates = {
-		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous nav-incremental-link page-navigation__prev">',
-						'<div class="nav-incremental__part">Part {{num}}</div>',
-						'<div class="nav-incremental__title">{{title}}</div>',
+		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">',
+						'<div class="guide__incremental-part">Part {{num}}</div>',
+						'<div class="guide__incremental-title">{{title}}</div>',
 						'</div>'].join(''),
-		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--previous nav-incremental-link page-navigation__prev">',
-						'<div class="nav-incremental__part">Part {{num}}</div>',
-						'<div class="nav-incremental__title">{{title}}</div>',
+		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
+						'<div class="guide__incremental-part">Part {{num}}</div>',
+						'<div class="guide__incremental-itle">{{title}}</div>',
 						'</div>'].join('')
 	},
 	render = function(template, data){
