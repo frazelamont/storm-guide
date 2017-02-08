@@ -16,7 +16,7 @@ const CONSTANTS = {
 						'</div>'].join(''),
 		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
-						'<div class="guide__incremental-itle">{{title}}</div>',
+						'<div class="guide__incremental-title">{{title}}</div>',
 						'</div>'].join('')
 	},
 	render = function(template, data){

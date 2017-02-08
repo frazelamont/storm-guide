@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Wed, 08 Feb 2017 09:12:25 GMT
+ * @version 0.1.1: Wed, 08 Feb 2017 12:08:37 GMT
  * @author stormid
  * @license MIT
  */
@@ -36,7 +36,7 @@ var CONSTANTS = {
     hash = window.location && window.location.hash.slice(1) || null,
     templates = {
 	previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</div>'].join(''),
-	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-itle">{{title}}</div>', '</div>'].join('')
+	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</div>'].join('')
 },
     render = function render(template, data) {
 	for (var k in data) {

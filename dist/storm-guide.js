@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Wed, 08 Feb 2017 09:12:19 GMT
+ * @version 0.1.1: Wed, 08 Feb 2017 12:08:36 GMT
  * @author stormid
  * @license MIT
  */
@@ -22,7 +22,7 @@ const CONSTANTS = {
 						'</div>'].join(''),
 		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
-						'<div class="guide__incremental-itle">{{title}}</div>',
+						'<div class="guide__incremental-title">{{title}}</div>',
 						'</div>'].join('')
 	},
 	render = function(template, data){
