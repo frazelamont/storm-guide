@@ -8,7 +8,7 @@ const CONSTANTS = {
 		incrementalNavHolder: '.js-guide__incremental',
 		activeClassName: 'active'
 	},
-	hash = (global.location && global.location.hash.slice(1)) || null,
+	hash = (window.location && window.location.hash.slice(1)) || null,
 	templates = {
 		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
@@ -30,7 +30,7 @@ const CONSTANTS = {
 
 const StormGuide = {
 	init(){
-		if(global.location) global.location.hash = '';
+		if(window.location) window.location.hash = '';
 
 		this.links = [].slice.call(document.querySelectorAll(this.settings.linkClassName)) || null;
 		this.sections = [].slice.call(document.querySelectorAll(this.settings.sectionClassName));
@@ -68,7 +68,7 @@ const StormGuide = {
 		
 		window.scrollTo(0,0);
 		window.setTimeout(() => {
-			if(hash && global.location.hash === '')  (!!window.history && !!window.history.pushState) && window.history.pushState({ URL: `#${hash}`}, '', `#${hash}`);
+			if(hash && window.location.hash === '')  (!!window.history && !!window.history.pushState) && window.history.pushState({ URL: `#${hash}`}, '', `#${hash}`);
 			window.scrollTo(0,0);
 		}, 0);
 	},
