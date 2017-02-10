@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Wed, 08 Feb 2017 12:08:36 GMT
+ * @version 0.1.1: Fri, 10 Feb 2017 15:50:31 GMT
  * @author stormid
  * @license MIT
  */
