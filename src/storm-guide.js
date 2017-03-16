@@ -13,11 +13,11 @@ const CONSTANTS = {
 		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
 						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join(''),
+						'</a>'].join(''),
 		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
 						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join('')
+						'</a>'].join('')
 	},
 	render = function(template, data){
 		for(var k in data){
@@ -126,7 +126,9 @@ const StormGuide = {
 	}
 };
 
-const init = opts => {
+const init = (sel, opts) => {
+	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+
 	return Object.assign(Object.create(StormGuide), {
 		settings: Object.assign({}, defaults, opts)
 	}).init();

@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Fri, 10 Mar 2017 17:27:48 GMT
+ * @version 0.1.1: Thu, 16 Mar 2017 16:11:03 GMT
  * @author stormid
  * @license MIT
  */
@@ -19,11 +19,11 @@ const CONSTANTS = {
 		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
 						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join(''),
+						'</a>'].join(''),
 		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
 						'<div class="guide__incremental-part">Part {{num}}</div>',
 						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join('')
+						'</a>'].join('')
 	},
 	render = function(template, data){
 		for(var k in data){
@@ -132,7 +132,9 @@ const StormGuide = {
 	}
 };
 
-const init = opts => {
+const init = (sel, opts) => {
+	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+
 	return Object.assign(Object.create(StormGuide), {
 		settings: Object.assign({}, defaults, opts)
 	}).init();
