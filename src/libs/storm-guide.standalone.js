@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Fri, 10 Feb 2017 15:50:32 GMT
+ * @version 0.1.1: Thu, 16 Mar 2017 16:11:03 GMT
  * @author stormid
  * @license MIT
  */
@@ -35,8 +35,8 @@ var CONSTANTS = {
 },
     hash = window.location && window.location.hash.slice(1) || null,
     templates = {
-	previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</div>'].join(''),
-	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</div>'].join('')
+	previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</a>'].join(''),
+	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</a>'].join('')
 },
     render = function render(template, data) {
 	for (var k in data) {
@@ -152,7 +152,9 @@ var StormGuide = {
 	}
 };
 
-var init = function init(opts) {
+var init = function init(sel, opts) {
+	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+
 	return Object.assign(Object.create(StormGuide), {
 		settings: Object.assign({}, defaults, opts)
 	}).init();
