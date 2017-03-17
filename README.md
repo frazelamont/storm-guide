@@ -1,4 +1,4 @@
-#Storm Guide
+# Storm Guide
 
 [![Build Status](https://travis-ci.org/mjbp/storm-guide.svg?branch=master)](https://travis-ci.org/mjbp/storm-guide)
 [![codecov.io](http://codecov.io/github/mjbp/storm-guide/coverage.svg?branch=master)](http://codecov.io/github/mjbp/storm-guide?branch=master)
@@ -6,11 +6,11 @@
 
 GDS Guide-like implementation, turning a single page  into a multi-step guide.
 
-##Example
+## Example
 [https://mjbp.github.io/storm-guide](https://mjbp.github.io/storm-/guide)
     
 
-##Usage
+## Usage
 HTML
 ```
 <div class="guide js-guide">
@@ -52,7 +52,7 @@ Load('/content/js/async/storm-guide.standalone.js')
     });
 ```
 
-##Options
+## Options
 ```
     {
 		linkClassName: '.js-guide__link',
@@ -69,18 +69,18 @@ Guide.init({
 });
 ```
 
-##Tests
+## Tests
 ```
 npm run test
 ```
 
-##Browser support
+## Browser support
 This is module has both es6 and es5 distributions. The es6 version should be used in a workflow that transpiles.
 
 This module depends upon Object.assign, element.classList, and Promises, available in all evergreen browsers. ie9+ is supported with polyfills, ie8+ will work with even more polyfills for Array functions and eventListeners.
 
-##Dependencies
+## Dependencies
 None
 
-##License
+## License
 MIT
