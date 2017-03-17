@@ -1,6 +1,6 @@
 {
   "name": "storm-guide",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "GDS Guide page-like implementation",
   "author": "stormid",
   "license": "MIT",
@@ -63,4 +63,3 @@
     "vinyl-source-stream": "^1.1.0"
   }
 }
-
