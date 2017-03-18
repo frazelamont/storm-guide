@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Thu, 16 Mar 2017 16:11:03 GMT
+ * @version 1.0.0: Sat, 18 Mar 2017 15:37:47 GMT
  * @author stormid
  * @license MIT
  */
@@ -133,7 +133,7 @@ const StormGuide = {
 };
 
 const init = (sel, opts) => {
-	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+	if (!document.querySelector(sel)) throw new Error('Guide cannot be initialised, no element found');
 
 	return Object.assign(Object.create(StormGuide), {
 		settings: Object.assign({}, defaults, opts)

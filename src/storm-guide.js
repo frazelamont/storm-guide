@@ -30,7 +30,7 @@ const CONSTANTS = {
 
 const StormGuide = {
 	init(){
-		if(window.location) window.location.hash = '';
+		// if(window.location) window.location.hash = '';
 
 		this.links = [].slice.call(document.querySelectorAll(this.settings.linkClassName)) || null;
 		this.sections = [].slice.call(document.querySelectorAll(this.settings.sectionClassName));
@@ -127,7 +127,7 @@ const StormGuide = {
 };
 
 const init = (sel, opts) => {
-	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+	if (!document.querySelector(sel)) throw new Error('Guide cannot be initialised, no element found');
 
 	return Object.assign(Object.create(StormGuide), {
 		settings: Object.assign({}, defaults, opts)
