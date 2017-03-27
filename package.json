@@ -20,20 +20,8 @@
   "scripts": {
     "build": "gulp build",
     "start": "gulp",
-    "test": "istanbul cover _mocha -- -R spec && codecov",
+    "test": "istanbul cover _mocha --report lcovonly -- -R spec && codecov",
     "test:watch": "NODE_ENV=test mocha --watch"
-  },
-  "browserify": {
-    "transform": [
-      [
-        "babelify",
-        {
-          "presets": [
-            "es2015"
-          ]
-        }
-      ]
-    ]
   },
   "devDependencies": {
     "babel": "^6.5.2",

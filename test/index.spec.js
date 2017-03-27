@@ -1,8 +1,9 @@
-import should from 'should';
-import Guide from '../dist/storm-guide';
 import 'jsdom-global/register';
+import should from 'should';
 
-let html = `<div class="guide js-guide">
+window.location = '';
+
+const html = `<div class="guide js-guide">
 		<ol class="guide-navigation">
 			<li><a href="#section-1" class="js-guide__link guide__link">Section 1</a></li>
 			<li><a href="#section-2" class="js-guide__link guide__link">Section 2</a></li>
@@ -21,11 +22,12 @@ let html = `<div class="guide js-guide">
 		</div>
 	</div>`;
 
+document.body.innerHTML = html;
+
+import Guide from '../dist/storm-guide';
 
 describe('Initialisation', () => {
-	document.body.innerHTML = html;
-	
-	let guide = Guide.init();
+	let guide = Guide.init('.js-guide');
 
 	it('should return an object', () => {
 		should(guide)
@@ -71,8 +73,7 @@ describe('Initialisation', () => {
 
 
 describe('UI', () => {
-	document.body.innerHTML = html;
-	let guide = Guide.init();
+	let guide = Guide.init('.js-guide');
 
 	it('should attach the click eventListener to nav links to change currentIndex, currentTitle properties, and set active className on appropriate section', () => {
 		guide.links[1].click();
