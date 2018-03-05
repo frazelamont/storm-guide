@@ -1,7 +1,8 @@
-import 'jsdom-global/register';
 import should from 'should';
+import 'jsdom-global/register';
+import Guide from '../dist/storm-guide.standalone';
 
-window.location = '';
+// window.location = '';
 
 const html = `<div class="guide js-guide">
 		<ol class="guide-navigation">
@@ -23,8 +24,6 @@ const html = `<div class="guide js-guide">
 	</div>`;
 
 document.body.innerHTML = html;
-
-import Guide from '../dist/storm-guide';
 
 describe('Initialisation', () => {
 	let guide = Guide.init('.js-guide');
@@ -153,16 +152,3 @@ describe('Errors', () => {
 	});
 
 });
-
-
-/*
-describe('Destroy', () => {
-
-	let ScrollToItem = ScrollTo.init('.js-scroll-to', {
-		focus: false
-	});
-	it('should remove the eventListeners from the nav items', () => {
-		ScrollToItem.destroy();
-	});
-});
-*/

@@ -1,7 +1,7 @@
-import Guide from './libs/storm-guide';
+import Guide from './libs/component';
 
 const onDOMContentLoadedTasks = [() => {
-	let guide = Guide.init();
+	let guide = Guide.init('.js-guide');
 	console.log(guide);
 }];
     

@@ -5,3 +5,4 @@ test
 example
 coverage
 node_modules
+.babelrc
