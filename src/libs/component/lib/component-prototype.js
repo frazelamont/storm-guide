@@ -1,40 +1,24 @@
-/**
- * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Fri, 10 Mar 2017 17:27:48 GMT
- * @author stormid
- * @license MIT
- */
 const CONSTANTS = {
 		TRIGGER_EVENTS: ['click', 'keydown'],
 		TRIGGER_KEYCODES: [13, 32]
 	},
-	defaults = {
-		linkClassName: '.js-guide__link',
-		sectionClassName: '.js-guide__section',
-		incrementalNavHolder: '.js-guide__incremental',
-		activeClassName: 'active'
-	},
-	hash = (window.location && window.location.hash.slice(1)) || null,
-	templates = {
-		previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">',
-						'<div class="guide__incremental-part">Part {{num}}</div>',
-						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join(''),
-		nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">',
-						'<div class="guide__incremental-part">Part {{num}}</div>',
-						'<div class="guide__incremental-title">{{title}}</div>',
-						'</div>'].join('')
-	},
-	render = function(template, data){
-		for(var k in data){
-			if(data.hasOwnProperty(k)){
-				template = template.split('{{' + k + '}}').join(data[k]);
-			}
-		}
-		return template;
-	};
+	hash = (window.location && window.location.hash.slice(1)) || null;
+	
+const navNext = data => `<a href="${data.link}" rel="next" class="js-guide__incremental--next guide__incremental--next">
+                                <div class="guide__incremental-part">
+                                    Part ${data.num}
+                                </div>
+                                <div class="guide__incremental-title">${data.title}</div>
+                            </a>`;
 
-const StormGuide = {
+const navPrevious = data => `<a href="${data.link}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">
+                                <div class="guide__incremental-part">
+                                    Part ${data.num}
+                                </div>
+                                <div class="guide__incremental-title">${data.title}</div>
+                            </a>`;
+
+export default {
 	init(){
 		if(window.location) window.location.hash = '';
 
@@ -50,7 +34,7 @@ const StormGuide = {
 		this.setVisibility();
 		this.setAria();
 		this.renderIncrementalNav();
-		this.bindEvents('.js-guide__link');
+		this.bindEvents(this.settings.linkClassName);
 
 		return this;
 		
@@ -86,20 +70,17 @@ const StormGuide = {
 		}
 	},
 	renderIncrementalNav(){
-		var incrementalNav = '',
-			getNavData = i => {
+		let getNavData = i => {
 				return {
-					link: this.links[i].href,
+					link: this.links[i].getAttribute('href'),
 					num: i + 1,
 					title: this.links[i].innerText
 				};
 			};
-		
-		if(this.currentIndex > 0) incrementalNav = render(templates.previousNav, getNavData(this.currentIndex - 1));
-		
-		if(this.currentIndex !== this.links.length - 1) incrementalNav += render(templates.nextNav, getNavData(this.currentIndex + 1));
-		
-		this.incrementalNavHolder.innerHTML = incrementalNav;
+			
+		this.incrementalNavHolder.innerHTML = `${this.currentIndex > 0 ? navPrevious(getNavData(this.currentIndex - 1)) : ''}
+												${this.currentIndex !== this.links.length - 1 ?  navNext(getNavData(this.currentIndex + 1)): ''}`;
+
 		this.bindEvents('.js-guide__incremental--previous, .js-guide__incremental--next');
 	},
 	bindEvents(sel) {
@@ -131,11 +112,3 @@ const StormGuide = {
 		return this.links.reduce((a, link, i) => { if(link.getAttribute('href') === href) a.push(i); return a; }, [])[0];
 	}
 };
-
-const init = opts => {
-	return Object.assign(Object.create(StormGuide), {
-		settings: Object.assign({}, defaults, opts)
-	}).init();
-};
-
-export default { init };

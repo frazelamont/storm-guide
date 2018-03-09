@@ -1,6 +1,6 @@
 /**
- * @name storm-guide: GDS Guide page-like implementation
- * @version 0.1.1: Thu, 16 Mar 2017 16:11:03 GMT
+ * @name storm-guide: GDS-style guide pattern implementation
+ * @version 1.1.0: Fri, 09 Mar 2018 14:25:59 GMT
  * @author stormid
  * @license MIT
  */
@@ -23,31 +23,28 @@
 Object.defineProperty(exports, "__esModule", {
 	value: true
 });
-var CONSTANTS = {
-	TRIGGER_EVENTS: ['click', 'keydown'],
-	TRIGGER_KEYCODES: [13, 32]
-},
-    defaults = {
+var defaults = {
 	linkClassName: '.js-guide__link',
 	sectionClassName: '.js-guide__section',
 	incrementalNavHolder: '.js-guide__incremental',
 	activeClassName: 'active'
-},
-    hash = window.location && window.location.hash.slice(1) || null,
-    templates = {
-	previousNav: ['<a href="{{link}}" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</a>'].join(''),
-	nextNav: ['<a href="{{link}}" rel="next" class="js-guide__incremental--next guide__incremental--next">', '<div class="guide__incremental-part">Part {{num}}</div>', '<div class="guide__incremental-title">{{title}}</div>', '</a>'].join('')
-},
-    render = function render(template, data) {
-	for (var k in data) {
-		if (data.hasOwnProperty(k)) {
-			template = template.split('{{' + k + '}}').join(data[k]);
-		}
-	}
-	return template;
 };
 
-var StormGuide = {
+var CONSTANTS = {
+	TRIGGER_EVENTS: ['click', 'keydown'],
+	TRIGGER_KEYCODES: [13, 32]
+};
+var hash = window.location && window.location.hash.slice(1) || null;
+
+var navNext = function navNext(data) {
+	return '<a href="' + data.link + '" rel="next" class="js-guide__incremental--next guide__incremental--next">\n                                <div class="guide__incremental-part">\n                                    Part ' + data.num + '\n                                </div>\n                                <div class="guide__incremental-title">' + data.title + '</div>\n                            </a>';
+};
+
+var navPrevious = function navPrevious(data) {
+	return '<a href="' + data.link + '" rel="previous" class="js-guide__incremental--previous guide__incremental--previous">\n                                <div class="guide__incremental-part">\n                                    Part ' + data.num + '\n                                </div>\n                                <div class="guide__incremental-title">' + data.title + '</div>\n                            </a>';
+};
+
+var componentPrototype = {
 	init: function init() {
 		if (window.location) window.location.hash = '';
 
@@ -63,7 +60,7 @@ var StormGuide = {
 		this.setVisibility();
 		this.setAria();
 		this.renderIncrementalNav();
-		this.bindEvents('.js-guide__link');
+		this.bindEvents(this.settings.linkClassName);
 
 		return this;
 	},
@@ -102,20 +99,16 @@ var StormGuide = {
 	renderIncrementalNav: function renderIncrementalNav() {
 		var _this2 = this;
 
-		var incrementalNav = '',
-		    getNavData = function getNavData(i) {
+		var getNavData = function getNavData(i) {
 			return {
-				link: _this2.links[i].href,
+				link: _this2.links[i].getAttribute('href'),
 				num: i + 1,
 				title: _this2.links[i].innerText
 			};
 		};
 
-		if (this.currentIndex > 0) incrementalNav = render(templates.previousNav, getNavData(this.currentIndex - 1));
+		this.incrementalNavHolder.innerHTML = (this.currentIndex > 0 ? navPrevious(getNavData(this.currentIndex - 1)) : '') + '\n\t\t\t\t\t\t\t\t\t\t\t\t' + (this.currentIndex !== this.links.length - 1 ? navNext(getNavData(this.currentIndex + 1)) : '');
 
-		if (this.currentIndex !== this.links.length - 1) incrementalNav += render(templates.nextNav, getNavData(this.currentIndex + 1));
-
-		this.incrementalNavHolder.innerHTML = incrementalNav;
 		this.bindEvents('.js-guide__incremental--previous, .js-guide__incremental--next');
 	},
 	bindEvents: function bindEvents(sel) {
@@ -153,12 +146,14 @@ var StormGuide = {
 };
 
 var init = function init(sel, opts) {
-	if (document.querySelector(sel).length === 0) throw new Error('Guide cannot be initialised, no element found');
+	if (!document.querySelector(sel)) throw new Error('Guide cannot be initialised, no element found');
 
-	return Object.assign(Object.create(StormGuide), {
+	return Object.assign(Object.create(componentPrototype), {
 		settings: Object.assign({}, defaults, opts)
 	}).init();
 };
 
-exports.default = { init: init };;
+var index = { init: init };
+
+exports.default = index;;
 }));
