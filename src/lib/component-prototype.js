@@ -34,7 +34,7 @@ export default {
 		this.setVisibility();
 		this.setAria();
 		this.renderIncrementalNav();
-		this.bindEvents('.js-guide__link');
+		this.bindEvents(this.settings.linkClassName);
 
 		return this;
 		

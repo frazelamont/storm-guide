@@ -1,6 +1,6 @@
 /**
- * @name storm-guide: GDS Guide page-like implementation
- * @version 1.0.4: Mon, 05 Mar 2018 12:10:19 GMT
+ * @name storm-guide: GDS-style guide pattern implementation
+ * @version 1.1.0: Fri, 09 Mar 2018 14:22:39 GMT
  * @author stormid
  * @license MIT
  */
@@ -60,7 +60,7 @@ var componentPrototype = {
 		this.setVisibility();
 		this.setAria();
 		this.renderIncrementalNav();
-		this.bindEvents('.js-guide__link');
+		this.bindEvents(this.settings.linkClassName);
 
 		return this;
 	},
