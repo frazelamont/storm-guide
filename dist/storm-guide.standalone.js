@@ -1,6 +1,6 @@
 /**
  * @name storm-guide: GDS-style guide pattern implementation
- * @version 1.1.0: Fri, 09 Mar 2018 14:25:59 GMT
+ * @version 1.1.1: Fri, 29 Jun 2018 12:41:32 GMT
  * @author stormid
  * @license MIT
  */
